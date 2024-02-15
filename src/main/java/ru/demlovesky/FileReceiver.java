@@ -1,5 +1,6 @@
 package ru.demlovesky;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
@@ -13,12 +14,15 @@ import java.io.OutputStream;
 public class FileReceiver {
 
     private String destination;
-
-    @Value("${jms.brokerAddress}")
     private String brokerAddress;
+
+//    public FileReceiver(String brokerAddress) {
+//        this.brokerAddress = brokerAddress;
+//    }
 
     public void setDestination(String destination, String brokerAddress) {
         this.destination = destination;
+        this.brokerAddress = brokerAddress;
     }
 
     @JmsListener(destination = "#{fileReceiver.destination}")
